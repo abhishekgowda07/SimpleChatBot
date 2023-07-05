@@ -6,7 +6,6 @@ const App = () => {
   const [userInput, setUserInput] = useState('');
 
   useEffect(() => {
-    // Scroll to the bottom of the chat window whenever new messages are added
     const chatWindow = document.getElementById('chat-window');
     chatWindow.scrollTop = chatWindow.scrollHeight;
   }, [chatMessages]);
