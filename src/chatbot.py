@@ -1,8 +1,6 @@
 from flask import Flask, request, jsonify
 from contextlib import nullcontext
-import nltk
 import numpy as np
-from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import requests
