@@ -2,6 +2,13 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Install nltk modules using 
+nltk.download('punkt')
+nltk.download('wordnet')
+
+or download here
+https://drive.google.com/drive/folders/1YZwtNNKerxtFndDeovgDlzc5Ese8P74-?usp=drive_link
+
 ## Available Scripts
 
 In the project directory, you can run:
