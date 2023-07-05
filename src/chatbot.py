@@ -17,14 +17,11 @@ from nltk.probability import FreqDist
 from nltk import ne_chunk
 from flask_cors import CORS
 
-# Download necessary resources
 app = Flask(__name__)
 CORS(app)
 
-# Set up the lemmatizer
 lemmatizer = WordNetLemmatizer()
 
-# Define some sample user queries
 user_queries = [
     "Hello",
     "What is your name?",
@@ -35,7 +32,6 @@ user_queries = [
     "thank you"
 ]
 
-# Define the chatbot's responses
 bot_responses = [
     "Hello there, How can I help you today?",
     "My name is ChatBot.",
@@ -69,7 +65,6 @@ for query in user_queries:
     lemmatized_tokens = [lemmatizer.lemmatize(token) for token in tokens]
     preprocessed_queries.append(' '.join(lemmatized_tokens))
 
-# Create the TF-IDF vectorizer and compute the document-term matrix
 vectorizer = TfidfVectorizer()
 X = vectorizer.fit_transform(preprocessed_queries)
 
@@ -81,21 +76,16 @@ def chatbot():
 
     preprocessed_input = lemmatizer.lemmatize(user_input.lower())
 
-    # Calculate the cosine similarity between the input and each query
     input_vector = vectorizer.transform([preprocessed_input])
     similarities = cosine_similarity(input_vector, X)
-
-    # Find the most similar query
     most_similar_index = np.argmax(similarities)
 
     most_similar_index = np.argmax(similarities)
     highest_similarity_score = similarities[0][most_similar_index]
 
     if highest_similarity_score < similarity_threshold:
-        # No match found, trigger the fallback mechanism
         information = scrape_website("https://en.wikipedia.org/wiki/{0}".format(user_input),user_input)
         if information is not None:
-            # Process the retrieved information
             response = information
         else:
             #print(highest_similarity_score)
@@ -103,7 +93,6 @@ def chatbot():
     else:
         response = bot_responses[most_similar_index]
 
-    # Check if user wants to end the conversation
     if preprocessed_input == "goodbye":
         return jsonify(response="ChatBot: " + response, end=True)
     
